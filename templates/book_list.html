@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book List</title>
+</head>
+<body>
+
+<h1>Books</h1>
+
+{% for book in books %}
+    <p><b>{{ book.title }}</b></p>
+    <p>{{ book.author }}</p>
+
+    <a href="/book/{{ book.id }}/">Open</a>
+    <hr>
+{% empty %}
+    <p>No books</p>
+{% endfor %}
+
+</body>
+</html>
