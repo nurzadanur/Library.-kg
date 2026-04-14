@@ -1,0 +1,38 @@
+<h1>Конные туры</h1>
+
+{% for i in location %}
+
+<h2>Название: {{ i.title }}</h2>
+
+<p>
+    Человек: {{ i.person.name }}
+</p>
+
+<h3>
+    Категории:
+    <p>
+        {% for cat in i.categories.all %}
+            {{ cat.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            Категории отсутствуют
+        {% endfor %}
+    </p>
+</h3>
+
+<h4>
+    Комментарии:
+    <p>
+        {% for com in i.comments.all %}
+            <p>Комментарий: {{ com.text }}</p>
+            {% if not forloop.last %}<hr>{% endif %}
+        {% empty %}
+            <p>Комментариев пока нет</p>
+        {% endfor %}
+    </p>
+</h4>
+
+<hr>
+<hr>
+<hr>
+
+{% endfor %}
