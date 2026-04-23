@@ -6,10 +6,17 @@
 
 {% for i in data %}
 
-    <h3>{{ i.full_name }}</h3>
+    <h3>
+        <a href="{% url 'questionnaire_detail' id=i.id %}">
+            {{ i.full_name }}
+        </a>
+    </h3>
+
     <p>Возраст: {{ i.age }}</p>
     <p>Email: {{ i.email }}</p>
     <p>Город: {{ i.city }}</p>
+
+    <p>Просмотры: {{ i.views }}</p>
 
     {% if i.photo %}
         <img src="{{ i.photo.url }}" width="120">

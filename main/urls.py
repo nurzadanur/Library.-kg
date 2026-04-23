@@ -16,22 +16,28 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from myShop.views import categories_view, products_view, category_products_view, shop_home
+from myShop.views import categories_view, products_view, category_products_view, shop_home, register, login_view
 from horse_tour.views import location_list_view
-from myShop.views import register, login_view
+from main.views import home
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('', shop_home, name='home'),
+    path('', home, name='home'),
 
+    path('blog/', include('blog.urls')),
+
+    path('shop/', shop_home, name='shop_home'),
     path('categories/', categories_view),
     path('products/', products_view),
     path('categories/<int:id>/', category_products_view),
+
     path('register/', register, name='register'),
     path('login/', login_view, name='login'),
 
     path('tour/', location_list_view),
 
     path('questionnaire/', include('questionnaire.urls')),
+
     path('captcha/', include('captcha.urls')),
 ]

@@ -5,7 +5,12 @@
 <h2>Название: {{ i.title }}</h2>
 
 <p>
-    Человек: {{ i.person.name }}
+    Человек:
+    {% if i.person %}
+        {{ i.person.name }}
+    {% else %}
+        не указан
+    {% endif %}
 </p>
 
 <h3>
@@ -19,20 +24,30 @@
     </p>
 </h3>
 
-<h4>
-    Комментарии:
-    <p>
-        {% for com in i.comments.all %}
-            <p>Комментарий: {{ com.text }}</p>
-            {% if not forloop.last %}<hr>{% endif %}
-        {% empty %}
-            <p>Комментариев пока нет</p>
-        {% endfor %}
-    </p>
-</h4>
+<h4>Комментарии:</h4>
+
+{% for com in i.comments.all %}
+    <p>Комментарий: {{ com.text }}</p>
+    <hr>
+{% empty %}
+    <p>Комментариев пока нет</p>
+{% endfor %}
 
 <hr>
 <hr>
 <hr>
 
 {% endfor %}
+
+
+<div>
+    {% if location.has_previous %}
+        <a href="?page={{ location.previous_page_number }}">⬅ Назад</a>
+    {% endif %}
+
+    <span>Страница {{ location.number }}</span>
+
+    {% if location.has_next %}
+        <a href="?page={{ location.next_page_number }}">Вперёд ➡</a>
+    {% endif %}
+</div>

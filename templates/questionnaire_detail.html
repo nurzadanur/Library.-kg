@@ -1,0 +1,23 @@
+<h1>{{ obj.full_name }}</h1>
+
+<p>Возраст: {{ obj.age }}</p>
+<p>Email: {{ obj.email }}</p>
+<p>Телефон: {{ obj.phone }}</p>
+
+<p>Город: {{ obj.city }}</p>
+<p>Страна: {{ obj.country }}</p>
+
+<p>Образование: {{ obj.education }}</p>
+<p>Хобби: {{ obj.hobby }}</p>
+
+<p>Опыт: {{ obj.experience_years }}</p>
+
+<p>Просмотры: {{ obj.views }}</p>
+
+{% if obj.photo %}
+    <img src="{{ obj.photo.url }}" width="150">
+{% endif %}
+
+<hr>
+
+<a href="/questionnaire/">← Назад</a>

@@ -38,3 +38,12 @@ def delete_questionnaire(request, id):
     obj = get_object_or_404(Questionnaire, id=id)
     obj.delete()
     return redirect('questionnaire_list')
+
+
+def questionnaire_detail(request, id):
+    obj = get_object_or_404(Questionnaire, id=id)
+
+    obj.views += 1
+    obj.save()
+
+    return render(request, "questionnaire_detail.html", {"obj": obj})

@@ -15,9 +15,10 @@ class Questionnaire(models.Model):
 
     experience_years = models.IntegerField()
 
-    # 📌 обязательно 2 поля для файлов
     photo = models.ImageField(upload_to='photos/')
     document = models.FileField(upload_to='documents/')
+
+    views = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
