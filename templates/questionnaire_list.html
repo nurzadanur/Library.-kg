@@ -1,0 +1,27 @@
+<h1>Список анкет</h1>
+
+<a href="{% url 'create_questionnaire' %}">Добавить анкету</a>
+
+<hr>
+
+{% for i in data %}
+
+    <h3>{{ i.full_name }}</h3>
+    <p>Возраст: {{ i.age }}</p>
+    <p>Email: {{ i.email }}</p>
+    <p>Город: {{ i.city }}</p>
+
+    {% if i.photo %}
+        <img src="{{ i.photo.url }}" width="120">
+    {% endif %}
+
+    <p>Создано: {{ i.created_at }}</p>
+
+    <a href="{% url 'update_questionnaire' id=i.id %}">✏ Изменить</a>
+    <a href="{% url 'delete_questionnaire' id=i.id %}">🗑 Удалить</a>
+
+    <hr>
+
+{% empty %}
+    <p>Анкет нет</p>
+{% endfor %}

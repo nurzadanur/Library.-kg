@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'myShop',
     'horse_tour',
+    'questionnaire',
 ]
 
 MIDDLEWARE = [

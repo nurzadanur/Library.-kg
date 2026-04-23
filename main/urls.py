@@ -20,6 +20,9 @@ from django.urls import path
 #from blog.views import book_list, book_detail
 from myShop.views import categories_view, products_view, category_products_view, shop_home
 from horse_tour.views import location_list_view
+from myShop.views import categories_view, products_view, category_products_view, shop_home
+from django.urls import path, include
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
@@ -31,4 +34,6 @@ urlpatterns = [
     path('categories/<int:id>/', category_products_view),
     path('myShop/', shop_home),
     path('tour/', location_list_view),
+    path('questionnaire/', include('questionnaire.qurls')),
+    
 ]
