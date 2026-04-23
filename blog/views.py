@@ -1,21 +1,21 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Book
 
 
-def book_list(request):
-    query = request.GET.get('q')
+class BookListView(ListView):
+    model = Book
+    template_name = 'book_list.html'
+    context_object_name = 'books'
 
-    if query:
-        books = Book.objects.filter(title__icontains=query)
-    else:
-        books = Book.objects.all()
+    def get_queryset(self):
+        query = self.request.GET.get('q')
 
-    return render(request, 'book_list.html', {
-        'books': books,
-        'query': query
-    })
+        if query:
+            return Book.objects.filter(title__icontains=query)
+        return Book.objects.all()
 
 
-def book_detail(request, id):
-    book = Book.objects.get(id=id)
-    return render(request, 'book_detail.html', {'book': book})
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_detail.html'
+    pk_url_kwarg = 'id'

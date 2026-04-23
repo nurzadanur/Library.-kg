@@ -1,49 +1,45 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Questionnaire
 from .forms import QuestionnaireForm
 
 
-def create_questionnaire(request):
-    if request.method == "POST":
-        form = QuestionnaireForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('questionnaire_list')
-    else:
-        form = QuestionnaireForm()
-
-    return render(request, "create_questionnaire.html", {"form": form})
+class QuestionnaireCreateView(CreateView):
+    model = Questionnaire
+    form_class = QuestionnaireForm
+    template_name = "create_questionnaire.html"
+    success_url = '/questionnaires/'
 
 
-def questionnaire_list(request):
-    data = Questionnaire.objects.all().order_by("-id")
-    return render(request, "questionnaire_list.html", {"data": data})
+class QuestionnaireListView(ListView):
+    model = Questionnaire
+    template_name = "questionnaire_list.html"
+    context_object_name = "data"
+    ordering = ['-id']
 
 
-def update_questionnaire(request, id):
-    obj = get_object_or_404(Questionnaire, id=id)
-
-    if request.method == "POST":
-        form = QuestionnaireForm(request.POST, request.FILES, instance=obj)
-        if form.is_valid():
-            form.save()
-            return redirect('questionnaire_list')
-    else:
-        form = QuestionnaireForm(instance=obj)
-
-    return render(request, "update_questionnaire.html", {"form": form})
+class QuestionnaireUpdateView(UpdateView):
+    model = Questionnaire
+    form_class = QuestionnaireForm
+    template_name = "update_questionnaire.html"
+    pk_url_kwarg = "id"
+    success_url = '/questionnaires/'
 
 
-def delete_questionnaire(request, id):
-    obj = get_object_or_404(Questionnaire, id=id)
-    obj.delete()
-    return redirect('questionnaire_list')
+class QuestionnaireDeleteView(DeleteView):
+    model = Questionnaire
+    template_name = "questionnaire_delete.html"
+    pk_url_kwarg = "id"
+    success_url = '/questionnaires/'
 
 
-def questionnaire_detail(request, id):
-    obj = get_object_or_404(Questionnaire, id=id)
+class QuestionnaireDetailView(DetailView):
+    model = Questionnaire
+    template_name = "questionnaire_detail.html"
+    context_object_name = "obj"
+    pk_url_kwarg = "id"
 
-    obj.views += 1
-    obj.save()
-
-    return render(request, "questionnaire_detail.html", {"obj": obj})
+    def get_object(self):
+        obj = super().get_object()
+        obj.views += 1
+        obj.save()
+        return obj
