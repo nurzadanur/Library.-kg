@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'myShop',
     'horse_tour',
     'questionnaire',
+    'captcha'
 ]
+AUTH_USER_MODEL = 'myShop.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
