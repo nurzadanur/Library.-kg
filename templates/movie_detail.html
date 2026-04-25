@@ -1,0 +1,16 @@
+<h1>{{ object.title }}</h1>
+
+<p>{{ object.description }}</p>
+
+<p>Жанр: {{ object.genre }}</p>
+
+<p>Дата выхода: {{ object.release_date }}</p>
+
+<p>Категории:</p>
+<ul>
+    {% for c in object.categories.all %}
+        <li>{{ c.name }}</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'movie_list' %}">← Назад</a>

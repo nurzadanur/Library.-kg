@@ -1,0 +1,24 @@
+<h1>Фильмы</h1>
+
+<form method="get">
+    <input type="text" name="q" placeholder="Поиск">
+    <button type="submit">Найти</button>
+</form>
+
+<hr>
+
+{% for movie in movies %}
+    <h3>{{ movie.title }}</h3>
+    <p>{{ movie.description }}</p>
+    <p>Жанр: {{ movie.genre }}</p>
+    <p>Рейтинг: {{ movie.avg_rating }}</p>
+
+    <a href="{% url 'movie_detail' movie.pk %}">Подробнее</a>
+    <a href="{% url 'movie_edit' movie.pk %}">Редактировать</a>
+    <a href="{% url 'movie_delete' movie.pk %}">Удалить</a>
+    <hr>
+{% empty %}
+    <p>Фильмов нет</p>
+{% endfor %}
+
+<a href="{% url 'movie_add' %}">+ Добавить фильм</a>

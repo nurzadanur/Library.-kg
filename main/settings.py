@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'myShop',
     'horse_tour',
     'questionnaire',
-    'captcha'
+    'captcha',
+    'CineBoard'
 ]
 AUTH_USER_MODEL = 'myShop.CustomUser'
 

@@ -16,9 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from myShop.views import categories_view, products_view, category_products_view, shop_home, register, login_view
-from horse_tour.views import location_list_view
+
+
+from myShop.views import (
+    CategoriesView,
+    ProductsView,
+    CategoryProductsView,
+    ShopHomeView,
+    RegisterView,
+    LoginView
+)
+
+from horse_tour.views import LocationListView
 from main.views import home
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,17 +38,19 @@ urlpatterns = [
 
     path('blog/', include('blog.urls')),
 
-    path('shop/', shop_home, name='shop_home'),
-    path('categories/', categories_view),
-    path('products/', products_view),
-    path('categories/<int:id>/', category_products_view),
+    path('shop/', include('myShop.urls')), 
+    
 
-    path('register/', register, name='register'),
-    path('login/', login_view, name='login'),
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
 
-    path('tour/', location_list_view),
+    path('tour/', LocationListView.as_view()),
 
     path('questionnaire/', include('questionnaire.urls')),
 
     path('captcha/', include('captcha.urls')),
+
+    path('movies/', include('CineBoard.urls')),
+
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
